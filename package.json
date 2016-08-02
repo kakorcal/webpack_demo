@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "//": "The command below works because npm adds node_modules/.bin temporarily to the path."
+    "//": "The command below works because npm adds node_modules/.bin temporarily to the path.",
     "build": "webpack --display-modules"
   },
   "repository": {
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/kakorcal/webpack_demo#readme",
   "devDependencies": {
     "html-webpack-plugin": "^2.22.0",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-merge": "^0.14.1"
   }
 }
