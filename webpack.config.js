@@ -7,6 +7,9 @@ const merge = require('webpack-merge');
 // https://www.npmjs.com/package/webpack-validator
 const validate = require('webpack-validator');
 
+// devServer
+const parts = require('./libs/parts');
+
 // prefer to use absolute paths everywhere to avoid confusion
 const PATHS = {
   app: path.join(__dirname, 'app'),
@@ -38,7 +41,11 @@ switch(process.env.npm_lifecycle_event){
     config = merge(common, {});
     break;
   default:
-    config = merge(common, {});
+    // config for development
+    config = merge(common, parts.devServer({
+      host: process.env.HOST,
+      port: process.env.PORT
+    }));
 }
 
 // wrap config into a validator
