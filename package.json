@@ -4,7 +4,9 @@
   "description": "Webpack configuration example inspired by https://github.com/survivejs-demos/webpack-demo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "//": "The command below works because npm adds node_modules/.bin temporarily to the path."
+    "build": "webpack --display-modules"
   },
   "repository": {
     "type": "git",
