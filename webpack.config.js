@@ -17,6 +17,7 @@ module.exports = {
     filename: '[name].js'
   },
   plugins: [
+    // the title option literally adds text inside the title tag
     new HtmlWebpackPlugin({title: 'Webpack Demo'})
   ]
 };
