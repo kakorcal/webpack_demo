@@ -41,4 +41,5 @@ switch(process.env.npm_lifecycle_event){
     config = merge(common, {});
 }
 
+// wrap config into a validator
 module.exports = validate(config);
