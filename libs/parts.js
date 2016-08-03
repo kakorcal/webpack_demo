@@ -24,3 +24,25 @@ exports.devServer = function(options){
     ]
   };
 };
+
+exports.setupCSS = function(paths){
+  return {
+    module: {
+      // Loaders are transformations applied to the source file. They return the new source
+      // List of loaders: http://webpack.github.io/docs/list-of-loaders.html
+      loaders: [
+        {
+          // apply loader if file matches this extension
+          test: /\.css$/,
+          // loaders are evaluated right to left. the css-loader then style-loader get evaluated.
+          // the css-loader resolves stuff like @import and url statements while style-loaders
+          // resolves require statements in javascript files
+          loaders: ['style', 'css'],
+          // IMPORTANT: always specify what path the loader should check. 
+          // otherwise it will look at all files from the base directory which will hurt performance.
+          include: paths
+        }
+      ]
+    }
+  }
+};
