@@ -109,6 +109,13 @@ exports.extractBundle = function(options){
         // This is why you should keep the manifest separate from the main bundles as doing this avoids the problem.
         // TODO: try to see what happens when you don't include 'manifest'
         names: [options.name, 'manifest']
+
+        // manifest file. Why do I need it ?
+        // Avoiding that step will break the caching behavior. If the vendor bundle changes 
+        // (say we add a module there), this will lead to a change in the manifest. 
+        // Because manifest changes, so will the hash of the file containing it.
+        // You can try to see what happens if you do it this way. 
+        // Note where it generates the manifest if you don't extract it.
       })
     ]
   };
