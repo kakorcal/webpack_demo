@@ -1,4 +1,6 @@
 const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 // the webpack-dev-server is a development server running in-memory. 
 // meaning that it doesn't output the results into your build directory.
 // https://en.wikipedia.org/wiki/In-memory_database
@@ -120,4 +122,17 @@ exports.extractBundle = function(options){
       })
     ]
   };
+};
+
+// this removes older builds so that the build folder doesn't get polluted with files.
+exports.clean = function(path){
+  return {
+    plugins: [
+      new CleanWebpackPlugin([path], {
+        // Without `root` CleanWebpackPlugin won't point to our project and will fail to work.
+        // The process.cwd() method returns the current working directory of the Node.js process.
+        root: process.cwd()
+      })
+    ]
+  }
 };

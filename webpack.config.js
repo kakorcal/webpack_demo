@@ -107,7 +107,8 @@ switch(process.env.npm_lifecycle_event){
         // for example, angular needs to come before angular-ui-router, but 
         // the order doesn't matter for lodash and jquery
         entries: Object.keys(pkg.dependencies)
-      })
+      }),
+      parts.clean(PATHS.build)
     );
     break;
   default:

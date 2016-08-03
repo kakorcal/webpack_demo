@@ -9,5 +9,5 @@ component.className = styles.greenHeader;
 
 document.body.appendChild(component);
 
-// testing hash change
-console.log('HASH CHANGES ONLY FOR app.js AND manifest.js NOT FOR vendor.js');
+// testing for hash change
+console.log('THE HASH CHANGES ONLY FOR app.js AND manifest.js NOT FOR vendor.js');
