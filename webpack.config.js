@@ -79,6 +79,10 @@ switch(process.env.npm_lifecycle_event){
         // protip: if you separate package.json dependencies/devDependencies strictly
         // you can use that instead of hard coding it here.
           // entries: ['react'] // hard coded
+        // NOTE: when using Object.keys, the return value order is random
+        // this can only be used if the order doesn't matter with each other.
+        // for example, angular needs to come before angular-ui-router, but 
+        // the order doesn't matter for lodash and jquery
         entries: Object.keys(pkg.dependencies)
       })
     );
