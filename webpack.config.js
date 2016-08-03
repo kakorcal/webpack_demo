@@ -38,11 +38,24 @@ var config;
 switch(process.env.npm_lifecycle_event){
   case 'build': 
     // merge the common stuff with the specific configs
-    config = merge(common, parts.setupCSS(PATHS.app));
+    config = merge(
+      common, 
+      // source maps allows you to see where the error occurred during the build.
+      // this link gives all the options: https://webpack.github.io/docs/configuration.html#devtool
+      // basically, you get to choose the quality of the source map. each have pros and cons regarding
+      // performance and the quality of the file.
+      // to enable source maps for css, you have to include it in query loader as css?sourceMap
+      // If you want more control over source maps, you can use the SourceMapDevToolPlugin
+      // https://webpack.github.io/docs/list-of-plugins.html#sourcemapdevtoolplugin
+      {devtool: 'source-map'},
+      parts.setupCSS(PATHS.app)
+    );
     break;
   default:
     // config for development
-    config = merge(common, 
+    config = merge(
+      common, 
+      {devtool: 'eval-source-map'},
       parts.setupCSS(PATHS.app), 
       parts.devServer({
         host: process.env.HOST,
