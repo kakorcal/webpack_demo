@@ -93,7 +93,8 @@ switch(process.env.npm_lifecycle_event){
       // Most importantly it will give you a smaller build and improved performance 
       // because of how UglifyJs treats the if statements.
       parts.setFreeVariable('process.env.NODE_ENV', 'production'),
-      parts.setupCSS(PATHS.app), 
+      // parts.setupCSS(PATHS.app), 
+      parts.extractCSS(PATHS.app),
       parts.extractBundle({
         name: 'vendor',
         // NOTE: its important to see more clearly what exactly is going on.

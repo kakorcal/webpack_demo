@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // the webpack-dev-server is a development server running in-memory. 
 // meaning that it doesn't output the results into your build directory.
@@ -135,4 +136,26 @@ exports.clean = function(path){
       })
     ]
   }
+};
+
+// we want to extract all the css that is inline within the javascript files.
+// this is so we can prevent flash of unstyled content (FOUC) and to allow cached CSS (create its own hashed file)
+exports.extractCSS = function(paths){
+  return {
+    module: {
+      loaders: [
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract('style', 'css'),
+          include: paths
+        }
+      ]
+    },
+    plugins: [
+      // The ExtractTextPlugin will take out whatever is specified in the loader and
+      // create an individual hashed file
+      // NOTE: Does not work with hot module replacement. should be used for production only.
+      new ExtractTextPlugin('[name].[chunkhash].css')
+    ]
+  };
 };
