@@ -20,10 +20,22 @@ const PATHS = {
 const common = {
   // entries can accept a string, array, or object
   entry: {
-    app: PATHS.app
+    app: PATHS.app,
+    // bundle splitting - basically we want multiple bundles so dependencies don't have to be 
+    // bundled again if the app state changes. To give you a simple example, instead of having app.js (100 kB), 
+    // we could end up with app.js (10 kB) and vendor.js (90 kB). Now changes made to the application 
+    // are cheap for the clients that have already used the application earlier.
+    // We can push the vendor dependencies to a bundle of its own and benefit from client level caching. 
+    // now there are two entry chunks
+      // vendor: ['react'] // this is temporary hard coded
+    // side note: http://programmers.stackexchange.com/questions/123305/what-is-the-difference-between-the-lib-and-vendor-folders
   },
   output: {
     path: PATHS.build,
+    // output name will be the same as entry property name
+    // currently, if you look at the size of both app.js and vendor.js they are about the same.
+    // this is because app.js also contains react and its dependencies (webpack pulls the related dependencies to a bundle by default)
+    // so we have to use the CommonsChunkPlugin to change the webpack default.
     filename: '[name].js'
   },
   plugins: [
@@ -56,7 +68,11 @@ switch(process.env.npm_lifecycle_event){
       // Most importantly it will give you a smaller build and improved performance 
       // because of how UglifyJs treats the if statements.
       parts.setFreeVariable('process.env.NODE_ENV', 'production'),
-      parts.setupCSS(PATHS.app)
+      parts.setupCSS(PATHS.app), 
+      parts.extractBundle({
+        name: 'vendor',
+        entries: ['react']
+      })
     );
     break;
   default:

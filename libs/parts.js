@@ -90,3 +90,26 @@ exports.setFreeVariable = function(key, value){
 };
 
 
+exports.extractBundle = function(options){
+  const entry = {};
+  entry[options.name] = options.entries;
+
+  return {
+    entry: entry,
+    plugins: [
+    // The CommonsChunkPlugin identifies common modules and put them into a commons chunk. 
+      new webpack.optimize.CommonsChunkPlugin({
+        // extracting the manifest file - contains the webpack runtime that starts the whole application 
+        // and contains the dependency information needed by it. This avoids a serious invalidation problem and 
+        // the manifest is needed for reliable caching.
+        // If we don't extract a manifest, webpack will generate the runtime to the vendor bundle. 
+        // In case we modify the application code, the application bundle hash will change. 
+        // Because that hash will change, so does the implementation of the runtime as it uses the hash 
+        // to load the application bundle. Due to this the vendor bundle will receive a new hash too! 
+        // This is why you should keep the manifest separate from the main bundles as doing this avoids the problem.
+        // TODO: try to see what happens when you don't include 'manifest'
+        names: [options.name, 'manifest']
+      })
+    ]
+  };
+};
