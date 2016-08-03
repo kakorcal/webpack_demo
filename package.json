@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "//": "The commands below works because npm adds node_modules/.bin temporarily to the path.",
     "start": "webpack-dev-server",
-    "build": "webpack --display-modules"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,8 @@
     "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.14.1",
     "webpack-validator": "^2.2.6"
+  },
+  "dependencies": {
+    "react": "^15.3.0"
   }
 }

@@ -1,3 +1,5 @@
+require('react');
+
 var styles = require('./main.css');
 
 var component = require('./component')();

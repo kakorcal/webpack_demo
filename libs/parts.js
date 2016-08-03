@@ -50,3 +50,20 @@ exports.setupCSS = function(paths){
     }
   }
 };
+
+exports.minify = function(){
+  return {
+    plugins: [
+      // minify plugin. in command line, you can use 'webpack -p' to get the same effect.
+      // -p just stands for production.
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          // Uglify warnings can help you to understand how it processes the code. 
+          // Therefore it may be beneficial to have a peek at the full output every once in a while.
+          // But for most cases, it can be left as false.
+          warnings: false
+        }
+      })
+    ]
+  }
+};

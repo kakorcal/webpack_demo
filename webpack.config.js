@@ -48,11 +48,12 @@ switch(process.env.npm_lifecycle_event){
       // If you want more control over source maps, you can use the SourceMapDevToolPlugin
       // https://webpack.github.io/docs/list-of-plugins.html#sourcemapdevtoolplugin
       {devtool: 'source-map'},
+      parts.minify(),
       parts.setupCSS(PATHS.app)
     );
     break;
   default:
-    // config for development
+    // config for dev server
     config = merge(
       common, 
       {devtool: 'eval-source-map'},
