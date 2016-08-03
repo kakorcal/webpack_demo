@@ -37,6 +37,7 @@ var config;
 // https://medium.com/@brianhan/use-this-npm-variable-as-a-flag-for-your-build-scripts-31069f5e2e57#.iofh1bwso
 switch(process.env.npm_lifecycle_event){
   case 'build': 
+    console.log('BUILDING BUNDLE');
     // merge the common stuff with the specific configs
     config = merge(
       common, 
@@ -49,10 +50,17 @@ switch(process.env.npm_lifecycle_event){
       // https://webpack.github.io/docs/list-of-plugins.html#sourcemapdevtoolplugin
       {devtool: 'source-map'},
       parts.minify(),
+      // React relies on process.env.NODE_ENV based optimizations. 
+      // If we force it to production, React will get built in an optimized manner. 
+      // This will disable some checks (e.g., property type checks). 
+      // Most importantly it will give you a smaller build and improved performance 
+      // because of how UglifyJs treats the if statements.
+      parts.setFreeVariable('process.env.NODE_ENV', 'production'),
       parts.setupCSS(PATHS.app)
     );
     break;
   default:
+    console.log('USING WEBPACK DEV SERVER');
     // config for dev server
     config = merge(
       common, 

@@ -72,3 +72,21 @@ exports.minify = function(){
     ]
   }
 };
+
+// Idea behind DefinePlugin
+// When minifying code, you can make use of free variables like process.env.NODE_ENV to be used in if statements. 
+// UglifyJs removes if statements when they are true which will increase performance.
+// Learn more about what free variables are here: http://stackoverflow.com/questions/12934929/what-are-free-variables
+// They are basically variables that aren't declared inside the function and aren't pass as a parameter.
+exports.setFreeVariable = function(key, value){
+  const env = {};
+  env[key] = JSON.stringify(value);
+
+  return {
+    plugins: [
+      new webpack.DefinePlugin(env)
+    ]
+  }
+};
+
+
