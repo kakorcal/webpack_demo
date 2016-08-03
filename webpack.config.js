@@ -63,6 +63,29 @@ switch(process.env.npm_lifecycle_event){
       // If you want more control over source maps, you can use the SourceMapDevToolPlugin
       // https://webpack.github.io/docs/list-of-plugins.html#sourcemapdevtoolplugin
       {devtool: 'source-map'},
+      { 
+        // placeholders - strings that can attach info about the webpack output
+          // most useful ones:
+          /*
+            [path] - returns an entry path
+            [name] - returns an entry name
+            [hash] - returns build hash
+            [chunkhash] - returns chunk specific hash
+          */
+        // adding the placeholders to the output file will let us know if its a new build.
+        // If the file contents related to a chunk are different, the hash will change as well, 
+        // thus invalidating the cache. More accurately, the browser will send a new request for 
+        // the new file. This means if only app bundle gets updated, only that file needs to be requested again.
+          // Note that you can override existing arrays/objects
+          // see: https://www.npmjs.com/package/webpack-merge
+        output: {
+          path: PATHS.build,
+          filename: '[name].[chunkhash].js',
+          // This is used for require.ensure. The setup
+          // will work without but this is useful to set.
+          chunkFilename: '[chunkhash].js'
+        }
+      },
       parts.minify(),
       // React relies on process.env.NODE_ENV based optimizations. 
       // If we force it to production, React will get built in an optimized manner. 
