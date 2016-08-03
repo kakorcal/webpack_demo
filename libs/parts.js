@@ -98,6 +98,7 @@ exports.extractBundle = function(options){
     entry: entry,
     plugins: [
     // The CommonsChunkPlugin identifies common modules and put them into a commons chunk. 
+    // https://github.com/webpack/docs/wiki/optimization
       new webpack.optimize.CommonsChunkPlugin({
         // extracting the manifest file - contains the webpack runtime that starts the whole application 
         // and contains the dependency information needed by it. This avoids a serious invalidation problem and 
