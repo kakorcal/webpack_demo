@@ -1,4 +1,6 @@
 const path = require('path');
+// for chunking
+const pkg = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // provides a merge function that concatenates arrays and merges objects
 // https://www.npmjs.com/package/webpack-merge
@@ -71,7 +73,13 @@ switch(process.env.npm_lifecycle_event){
       parts.setupCSS(PATHS.app), 
       parts.extractBundle({
         name: 'vendor',
-        entries: ['react']
+        // NOTE: its important to see more clearly what exactly is going on.
+        // this link: http://survivejs.com/webpack/building-with-webpack/splitting-bundles/
+        // has diagrams that show the differences between how the dependencies are not repeated between two entry points.
+        // protip: if you separate package.json dependencies/devDependencies strictly
+        // you can use that instead of hard coding it here.
+          // entries: ['react'] // hard coded
+        entries: Object.keys(pkg.dependencies)
       })
     );
     break;
