@@ -39,7 +39,9 @@ exports.setupCSS = function(paths){
           // loaders are evaluated right to left. the css-loader then style-loader get evaluated.
           // the css-loader resolves stuff like @import and url statements while style-loaders
           // resolves require statements in javascript files
-          loaders: ['style', 'css'],
+          // css?modules lets you default to local scoping and lets you use syntax shown in 
+          // https://github.com/css-modules/css-modules
+          loaders: ['style', 'css?modules'],
           // IMPORTANT: always specify what path the loader should check. 
           // otherwise it will look at all files from the base directory which will hurt performance.
           include: paths
