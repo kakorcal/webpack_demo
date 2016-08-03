@@ -1,5 +1,7 @@
 const webpack = require('webpack');
 // the webpack-dev-server is a development server running in-memory. 
+// meaning that it doesn't output the results into your build directory.
+// https://en.wikipedia.org/wiki/In-memory_database
 // It refreshes content automatically in the browser while you develop your application. 
 // It also supports an advanced Webpack feature known as Hot Module Replacement (HMR), 
 // which provides a way to patch the browser state without a full refresh.
