@@ -54,9 +54,14 @@ exports.setupCSS = function(paths){
 exports.minify = function(){
   return {
     plugins: [
-      // minify plugin. in command line, you can use 'webpack -p' to get the same effect.
-      // -p just stands for production.
+      // at the bare minimum, this plugin will go through the mangling process by default
+      // mangling - reduce functions, variables, and property names to a minimum
+      
+      // alternatives:
+        // in command line, you can use 'webpack -p' to get the same effect. -p just stands for production.
+        // another way to uglify is using a loader: https://www.npmjs.com/package/uglify-loader
       new webpack.optimize.UglifyJsPlugin({
+        // all options can be viewed here: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
         compress: {
           // Uglify warnings can help you to understand how it processes the code. 
           // Therefore it may be beneficial to have a peek at the full output every once in a while.
