@@ -1,2 +1,0 @@
-webpackJsonp([0,3],{0:function(e,n,o){o(1);var a=o(31)();a.className=styles.greenHeader,document.body.appendChild(a),console.log("THE HASH CHANGES ONLY FOR app.js AND manifest.js NOT FOR vendor.js")},31:function(e,n){e.exports=function(){var e=document.createElement("h1");return e.innerHTML="Hello World Webpack",e}}});
-//# sourceMappingURL=app.c4f03619065c84eaac9c.js.map

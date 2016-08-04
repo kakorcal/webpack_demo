@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PurifyCssPlugin = require('purifycss-webpack-plugin');
 
 // the webpack-dev-server is a development server running in-memory. 
 // meaning that it doesn't output the results into your build directory.
@@ -160,4 +161,24 @@ exports.extractCSS = function(paths){
       new ExtractTextPlugin('[name].[chunkhash].css')
     ]
   };
+};
+
+// the PurifyCssPlugin will extract css that is not used so that its not included in the build
+exports.purifyCSS = function(paths){
+  return {
+    plugins: [
+      new PurifyCssPlugin({
+        basePath: process.cwd(),
+        // `paths` is used to point PurifyCSS to files not
+        // visible to Webpack. You can pass glob patterns to it.
+        // https://www.npmjs.com/package/glob
+        paths: paths,
+        // https://github.com/purifycss/purifycss#the-optional-options-argument
+        purifyOptions: {
+          minify: true,
+          info: true
+        }
+      })
+    ]
+  }
 };

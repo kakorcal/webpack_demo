@@ -10,7 +10,7 @@ var component = require('./component')();
 
 // Using css?modules
 // NOTE: this won't work if you are extracting the css from the javascript file
-component.className = styles.greenHeader;
+// component.className = styles.greenHeader;
 
 document.body.appendChild(component);
 

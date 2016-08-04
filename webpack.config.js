@@ -9,14 +9,15 @@ const merge = require('webpack-merge');
 // https://www.npmjs.com/package/webpack-validator
 const validate = require('webpack-validator');
 
-// devServer
 const parts = require('./libs/parts');
 
 // prefer to use absolute paths everywhere to avoid confusion
-console.log(path.join(__dirname, 'app', 'main.css'));
 const PATHS = {
   app: path.join(__dirname, 'app'),
-  style: path.join(__dirname, 'app', 'main.css'),
+  style: [
+    path.join(__dirname, 'node_modules', 'purecss'),
+    path.join(__dirname, 'app', 'main.css'),
+  ],
   build: path.join(__dirname, 'build')
 };
 
@@ -98,6 +99,9 @@ switch(process.env.npm_lifecycle_event){
       parts.setFreeVariable('process.env.NODE_ENV', 'production'),
       // parts.setupCSS(PATHS.app), 
       parts.extractCSS(PATHS.style),
+      // NOTE: webpack is aware of PATHS.app (ie. index.js). so you don't have to pass it in.
+      // just being more explicit
+      parts.purifyCSS([PATHS.app]),
       parts.extractBundle({
         name: 'vendor',
         // NOTE: its important to see more clearly what exactly is going on.
