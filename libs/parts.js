@@ -140,6 +140,8 @@ exports.clean = function(path){
 
 // we want to extract all the css that is inline within the javascript files.
 // this is so we can prevent flash of unstyled content (FOUC) and to allow cached CSS (create its own hashed file)
+// FOUC - The browser doesn't have to wait for JavaScript to load to get styling information. 
+// Instead, it can process the CSS separately avoiding the flash. 
 exports.extractCSS = function(paths){
   return {
     module: {

@@ -13,8 +13,10 @@ const validate = require('webpack-validator');
 const parts = require('./libs/parts');
 
 // prefer to use absolute paths everywhere to avoid confusion
+console.log(path.join(__dirname, 'app', 'main.css'));
 const PATHS = {
   app: path.join(__dirname, 'app'),
+  style: path.join(__dirname, 'app', 'main.css'),
   build: path.join(__dirname, 'build')
 };
 
@@ -31,6 +33,7 @@ const common = {
     // now there are two entry chunks
       // vendor: ['react'] // this is temporary hard coded
     // side note: http://programmers.stackexchange.com/questions/123305/what-is-the-difference-between-the-lib-and-vendor-folders
+    style: PATHS.style
   },
   output: {
     path: PATHS.build,
@@ -94,7 +97,7 @@ switch(process.env.npm_lifecycle_event){
       // because of how UglifyJs treats the if statements.
       parts.setFreeVariable('process.env.NODE_ENV', 'production'),
       // parts.setupCSS(PATHS.app), 
-      parts.extractCSS(PATHS.app),
+      parts.extractCSS(PATHS.style),
       parts.extractBundle({
         name: 'vendor',
         // NOTE: its important to see more clearly what exactly is going on.
@@ -118,7 +121,7 @@ switch(process.env.npm_lifecycle_event){
     config = merge(
       common, 
       {devtool: 'eval-source-map'},
-      parts.setupCSS(PATHS.app), 
+      parts.setupCSS(PATHS.style), 
       parts.devServer({
         host: process.env.HOST,
         port: process.env.PORT
