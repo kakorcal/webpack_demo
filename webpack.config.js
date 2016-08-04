@@ -119,6 +119,28 @@ switch(process.env.npm_lifecycle_event){
       parts.clean(PATHS.build)
     );
     break;
+  case 'stats':
+    config = merge(
+      common,
+      {devtool: 'source-map'},
+      { 
+        output: {
+          path: PATHS.build,
+          filename: '[name].[chunkhash].js',
+          chunkFilename: '[chunkhash].js'
+        }
+      },
+      parts.minify(),
+      parts.setFreeVariable('process.env.NODE_ENV', 'production'),
+      parts.extractCSS(PATHS.style),
+      parts.purifyCSS([PATHS.app]),
+      parts.extractBundle({
+        name: 'vendor',
+        entries: Object.keys(pkg.dependencies)
+      }),
+      parts.clean(PATHS.build)
+    );
+    break;
   default:
     console.log('USING WEBPACK DEV SERVER');
     // config for dev server
@@ -134,4 +156,5 @@ switch(process.env.npm_lifecycle_event){
 }
 
 // wrap config into a validator
-module.exports = validate(config);
+// Run validator in quiet mode to avoid output in stats
+module.exports = validate(config, {quiet: true});
