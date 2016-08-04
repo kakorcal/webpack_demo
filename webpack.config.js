@@ -55,6 +55,7 @@ var config;
 // https://medium.com/@brianhan/use-this-npm-variable-as-a-flag-for-your-build-scripts-31069f5e2e57#.iofh1bwso
 switch(process.env.npm_lifecycle_event){
   case 'build': 
+  case 'stats': 
     console.log('BUILDING BUNDLE');
     // merge the common stuff with the specific configs
     config = merge(
@@ -84,6 +85,8 @@ switch(process.env.npm_lifecycle_event){
           // see: https://www.npmjs.com/package/webpack-merge
         output: {
           path: PATHS.build,
+          // Tweak this to match your GitHub project name for deploying to gh-pages
+          publicPath: '/webpack_demo/',
           filename: '[name].[chunkhash].js',
           // This is used for require.ensure. The setup
           // will work without but this is useful to set.
@@ -114,28 +117,6 @@ switch(process.env.npm_lifecycle_event){
         // this can only be used if the order doesn't matter with each other.
         // for example, angular needs to come before angular-ui-router, but 
         // the order doesn't matter for lodash and jquery
-        entries: Object.keys(pkg.dependencies)
-      }),
-      parts.clean(PATHS.build)
-    );
-    break;
-  case 'stats':
-    config = merge(
-      common,
-      {devtool: 'source-map'},
-      { 
-        output: {
-          path: PATHS.build,
-          filename: '[name].[chunkhash].js',
-          chunkFilename: '[chunkhash].js'
-        }
-      },
-      parts.minify(),
-      parts.setFreeVariable('process.env.NODE_ENV', 'production'),
-      parts.extractCSS(PATHS.style),
-      parts.purifyCSS([PATHS.app]),
-      parts.extractBundle({
-        name: 'vendor',
         entries: Object.keys(pkg.dependencies)
       }),
       parts.clean(PATHS.build)
