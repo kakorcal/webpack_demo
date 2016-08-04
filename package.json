@@ -5,13 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "//": "The commands below works because npm adds node_modules/.bin temporarily to the path.",
+    "//": "or go here: https://chrisbateman.github.io/webpack-visualizer/",
     "start": "webpack-dev-server",
     "build": "webpack",
-    "//": "Piping out webpack stats into a json file",
-    "//": "You can dump the json file here for better visualization: http://webpack.github.io/analyse/",
-    "//": "or go here: https://chrisbateman.github.io/webpack-visualizer/",
-    "stats": "webpack --profile --json > stats.json"
+    "stats": "webpack --profile --json > stats.json",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -28,6 +26,7 @@
     "clean-webpack-plugin": "^0.1.10",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "gh-pages": "^0.11.0",
     "html-webpack-plugin": "^2.22.0",
     "purecss": "^0.6.0",
     "purifycss-webpack-plugin": "^2.0.3",
